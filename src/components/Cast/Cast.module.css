@@ -1,0 +1,33 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.imageContainer {
+  min-width: 160px;
+  max-width: 160px;
+  min-height: 240px;
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.infoText {
+  margin: 0;
+}
+
+.infoText:not(:last-child) {
+  margin-bottom: 5px;
+}

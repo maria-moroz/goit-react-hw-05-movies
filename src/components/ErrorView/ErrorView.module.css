@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.image {
+  margin-top: 50px;
+}
+
+.message {
+  padding: 0;
+  text-align: center;
+  color: rgb(70, 70, 70);
+  font-size: 20px;
+}

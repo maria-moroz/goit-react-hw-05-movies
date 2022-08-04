@@ -1,0 +1,16 @@
+.list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.item {
+  text-decoration: none;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.link {
+  color: #2e86c1;
+}

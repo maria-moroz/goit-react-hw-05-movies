@@ -1,0 +1,59 @@
+.backButton {
+  display: inline-block;
+  border: 0;
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+  padding: 8px 10px;
+  background-color: #2980b9;
+
+  font-size: 16px;
+  color: #fff;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.backButton:hover {
+  opacity: 0.9;
+}
+
+.additionalLinks {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 20px;
+}
+
+.additionalItem:not(:last-child) {
+  margin-right: 10px;
+}
+
+.additionalLink {
+  text-decoration: none;
+  padding: 6px 10px;
+  background-color: #2980b9;
+  color: #fff;
+  border-radius: 3px;
+  display: flex;
+}
+
+.info {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.posterContainer {
+  min-width: 300px;
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
