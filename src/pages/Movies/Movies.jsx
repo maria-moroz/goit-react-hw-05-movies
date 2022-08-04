@@ -17,8 +17,6 @@ export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('query') ?? '';
 
-  console.log(filter);
-
   const updateQueryString = e => {
     const query = e.target.value;
     const nextParams = query !== '' ? { query } : {};
