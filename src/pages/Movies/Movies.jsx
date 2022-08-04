@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { searchMovies } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
@@ -11,8 +12,18 @@ const Status = {
 
 export default function Movies() {
   const [movies, setMovies] = useState(null);
-  const [filter, setFilter] = useState('');
   const [status, setStatus] = useState('');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get('query') ?? '';
+
+  console.log(filter);
+
+  const updateQueryString = e => {
+    const query = e.target.value;
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
 
   const fetchMovies = async () => {
     try {
@@ -23,10 +34,6 @@ export default function Movies() {
       console.log(error);
       setStatus(Status.ERROR);
     }
-  };
-
-  const handleInputChange = e => {
-    setFilter(e.target.value);
   };
 
   const handleSubmit = e => {
@@ -50,7 +57,7 @@ export default function Movies() {
           autoFocus
           placeholder="Search images and photos"
           value={filter}
-          onChange={handleInputChange}
+          onChange={updateQueryString}
         />
         <button type="submit" className={s.button}>
           Search
