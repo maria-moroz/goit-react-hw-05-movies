@@ -5,9 +5,9 @@ import SharedLayout from './SharedLayout/SharedLayout';
 const Home = lazy(() => import('../pages/Home/Home'));
 const Movies = lazy(() => import('../pages/Movies/Movies'));
 const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
-const ErrorView = lazy(() => import('./ErrorView/ErrorView'));
+const Cast = lazy(() => import('../pages/Cast/Cast'));
+const Reviews = lazy(() => import('../pages/Reviews/Reviews'));
+const ErrorView = lazy(() => import('../pages/ErrorView/ErrorView'));
 
 export const App = () => {
   return (
@@ -19,8 +19,8 @@ export const App = () => {
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
+        <Route path="*" element={<ErrorView />} />
       </Route>
-      <Route path="*" element={<ErrorView />} />
     </Routes>
   );
 };

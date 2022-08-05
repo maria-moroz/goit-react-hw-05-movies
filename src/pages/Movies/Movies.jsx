@@ -1,9 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import { searchMovies } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
+import ErrorView from 'pages/ErrorView/ErrorView';
 import s from './Movies.module.css';
-import ErrorView from 'components/ErrorView/ErrorView';
 
 const Status = {
   RESOLVED: 'resolved',
@@ -17,32 +18,43 @@ export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('query') ?? '';
 
-  const updateQueryString = e => {
-    const query = e.target.value;
+  useEffect(() => {
+    if (filter === '') {
+      return;
+    }
+
+    const fetchMovies = async () => {
+      try {
+        const data = await searchMovies(filter);
+
+        if (data.length === 0) {
+          setStatus(Status.ERROR);
+          return;
+        }
+
+        setMovies(data);
+        setStatus(Status.RESOLVED);
+      } catch (error) {
+        console.log(error);
+        setStatus(Status.ERROR);
+      }
+    };
+
+    fetchMovies();
+  }, [filter]);
+
+  const updateSearchParams = query => {
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
   };
 
-  const fetchMovies = async () => {
-    try {
-      const data = await searchMovies(filter);
-      setMovies(data);
-      setStatus(Status.RESOLVED);
-    } catch (error) {
-      console.log(error);
-      setStatus(Status.ERROR);
-    }
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
+    const form = e.currentTarget;
 
-    if (!filter) {
-      setStatus(Status.ERROR);
-      return;
-    }
+    updateSearchParams(form.filter.value);
 
-    fetchMovies(filter);
+    form.reset();
   };
 
   return (
@@ -51,11 +63,10 @@ export default function Movies() {
         <input
           className={s.input}
           type="text"
+          name="filter"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          value={filter}
-          onChange={updateQueryString}
         />
         <button type="submit" className={s.button}>
           Search

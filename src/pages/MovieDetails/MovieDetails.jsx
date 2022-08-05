@@ -10,9 +10,10 @@ export default function MovieDetails() {
   const movieDetails = useFetchMovieDetails();
 
   const onBackButtonClick = () => {
-    const back = location?.state?.from?.pathname;
+    const back = location?.state?.from;
+
     if (back) {
-      navigate(`${back}`, { replace: true });
+      navigate(back, { replace: true });
       return;
     }
     navigate('/');
@@ -54,12 +55,20 @@ export default function MovieDetails() {
         <h3>Additional information</h3>
         <ul className={s.additionalLinks}>
           <li className={s.additionalItem}>
-            <Link to="cast" className={s.additionalLink}>
+            <Link
+              to="cast"
+              state={{ from: location.state.from }}
+              className={s.additionalLink}
+            >
               Cast
             </Link>
           </li>
           <li className={s.additionalItem}>
-            <Link to="reviews" className={s.additionalLink}>
+            <Link
+              to="reviews"
+              state={{ from: location.state.from }}
+              className={s.additionalLink}
+            >
               Reviews
             </Link>
           </li>
