@@ -5,6 +5,7 @@ import { searchMovies } from 'services/api';
 import MoviesList from 'components/MoviesList/MoviesList';
 import ErrorView from 'pages/ErrorView/ErrorView';
 import s from './Movies.module.css';
+import { useRef } from 'react';
 
 const Status = {
   RESOLVED: 'resolved',
@@ -15,6 +16,8 @@ export default function Movies() {
   const [movies, setMovies] = useState(null);
   const [status, setStatus] = useState('');
 
+  const input = useRef(0);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('query') ?? '';
 
@@ -22,6 +25,8 @@ export default function Movies() {
     if (filter === '') {
       return;
     }
+
+    input.current.value = filter;
 
     const fetchMovies = async () => {
       try {
@@ -53,8 +58,6 @@ export default function Movies() {
     const form = e.currentTarget;
 
     updateSearchParams(form.filter.value);
-
-    form.reset();
   };
 
   return (
@@ -64,6 +67,7 @@ export default function Movies() {
           className={s.input}
           type="text"
           name="filter"
+          ref={input}
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
